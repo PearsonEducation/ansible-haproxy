@@ -23,9 +23,8 @@
 
 - name: Installs haproxy packages by yum
   yum:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ haproxy_packagenames }}"
+    name: "{{ haproxy_packagenames }}"
+    state: latest
   when: ansible_os_family == 'RedHat'
   notify: Restart haproxy
   tags:
