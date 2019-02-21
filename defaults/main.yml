@@ -72,3 +72,5 @@ haproxy_default_fall: 3
 #source: https://cipherli.st/ 2015-04
 haproxy_ssl_bind_cipher_suite: AES128+EECDH:AES128+EDH
 haproxy_ssl_bind_options: no-sslv3 no-tls-tickets force-tlsv12
+
+custom_haproxy_package: False # Path to package with haproxy
