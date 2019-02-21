@@ -56,7 +56,7 @@ frontend {{frontend.name}}
     {% endif %}
     {% if frontend.http_requests is defined %}
       {% for request in frontend.http_requests %}
-  http-request {{ request.action }}{% if request.param is defined %} {{ request.param }}{% endif %}{% if request.condition is defined %} {{ request.condition }}{% endif %}
+  http-request {{ request.action }}{% if request.param is defined %} {{ request.param }}{% endif %}{% if request.condition is defined %} {{ request.condition }}{% endif %} 
       {% endfor %}
     {% endif %}
     {% if frontend.tcp_requests is defined %}
@@ -79,6 +79,9 @@ frontend {{frontend.name}}
     {% endif %}
     {% if frontend.timeout_client is defined %}
   timeout client {{ frontend.timeout_client }}
+    {% endif %}
+    {% if frontend.redirect is defined %}
+  redirect {{ frontend.redirect }}
     {% endif %}
   {% endfor %}
 {% endif %}
