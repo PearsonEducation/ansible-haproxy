@@ -156,6 +156,9 @@ backend {{ backend.name }}
     {% if backend.stick_on is defined %}
   stick on {{ backend.stick_on }}
     {% endif %}
+    {% if backend.mode == 'http' and backend.cookie is defined %}
+  cookie {{ backend.cookie }}
+    {% endif %}
 
   {% endfor %}
 {% endif %}
