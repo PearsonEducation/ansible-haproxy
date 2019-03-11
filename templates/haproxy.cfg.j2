@@ -73,7 +73,7 @@ defaults
   retries 3
 {% endif %}
 {% if haproxy_defaults.timeouts is defined %}
-  {% for timout in haproxy_defaults.timeouts %}
+  {% for timeout in haproxy_defaults.timeouts %}
   timeout {{ timeout.param }} {{ timeout.value }}
   {% endfor %}
 {% else %}
