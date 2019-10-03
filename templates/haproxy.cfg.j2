@@ -72,20 +72,20 @@ defaults
 {% else %}
   retries 3
 {% endif %}
-{% if haproxy_default_timeouts.timeouts is defined and haproxy_default_timeouts.timeouts.connect is defined %}
-  timeout connect {{ haproxy_default_timeouts.timeouts.connect }}
+{% if haproxy_default_timeouts is defined and haproxy_default_timeouts.connect is defined %}
+  timeout connect {{ haproxy_default_timeouts.connect }}
 {% else %}
   timeout connect 5s
 {% endif %}
-{% if haproxy_default_timeouts.timeouts is defined and haproxy_default_timeouts.timeouts.client is defined %}
-  timeout client {{ haproxy_default_timeouts.timeouts.client }}
+{% if haproxy_default_timeouts is defined and haproxy_default_timeouts.client is defined %}
+  timeout client {{ haproxy_default_timeouts.client }}
 {% else %}
-  timeout client 5s
+  timeout client 50s
 {% endif %}
-{% if haproxy_default_timeouts.timeouts is defined and haproxy_default_timeouts.timeouts.server is defined %}
-  timeout server {{ haproxy_default_timeouts.timeouts.server }}
+{% if haproxy_default_timeouts is defined and haproxy_default_timeouts.server is defined %}
+  timeout server {{ haproxy_default_timeouts.server }}
 {% else %}
-  timeout server 5s
+  timeout server 50s
 {% endif %}
 
 {% if haproxy_defaults.maxconn is defined %}
