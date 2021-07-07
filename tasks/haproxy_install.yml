@@ -21,51 +21,20 @@
 #    state: present
 #  with_items: haproxy_packagenames
 
-- name: Installs haproxy packages by yum
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ haproxy_packagenames }}"
-  when: ansible_os_family == 'RedHat'
+- name: Installs haproxy package(s)
+  package:
+    name: "{{ haproxy_packagenames }}"
+    state: latest
+  when: not custom_haproxy_package | default(False)
   notify: Restart haproxy
   tags:
     - haproxy-packages
-    - haproxy-yum-packages
 
-- name: Installs haproxy packages by apt
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ haproxy_packagenames }}"
-  when: ansible_os_family == 'Debian'
-  notify: Restart haproxy
-  tags:
-    - haproxy-packages
-    - haproxy-apt-packages
-
-- name: Installs haproxy packages by pkgin
-  pkgin:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ haproxy_packagenames }}"
-  when: ansible_os_family == 'Solaris'
-  notify: Restart haproxy
-  tags:
-    - haproxy-packages
-    - haproxy-pkgin-packages
-
-#Disabling the conf.d idea to be closer to upstream.
-#- name: Replace haproxy defaults
-#  template:
-#    src: default_haproxy.j2
-#    dest: /etc/default/haproxy
-#  when: ansible_os_family == 'Debian'
-#- name: Replace haproxy init script to allow conf.d
-#  copy:
-#    src: haproxy.sh
-#    dest: /etc/init.d/haproxy
-#    mode: "0755"
-#  when: ansible_os_family == 'Debian'
+- name: Installing custom haproxy package
+  package:
+    name: "/root/custom_haproxy_build{{ (custom_haproxy_package | splitext)[1] }}"
+    state: latest
+  when: custom_haproxy_package | default(False)
 
 - name: Enable the service
   service:

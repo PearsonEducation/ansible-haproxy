@@ -28,3 +28,10 @@
     (ansible_distribution == 'Debian' and (ansible_distribution_major_version | version_compare ('8','<')))
   tags:
     - haproxy-repos
+
+- name: "Copy custom haproxy build to server"
+  copy:
+    src: "{{ custom_haproxy_package }}"
+    dest: "/root/custom_haproxy_build{{ (custom_haproxy_package | splitext)[1] }}"
+  when: custom_haproxy_package | default(False)
+
